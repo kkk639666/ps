@@ -43,7 +43,10 @@ ps/
 ├── models/                   # 模型文件目录（需自行准备）
 │   ├── pest_detect.pt        # YOLOv8 虫害检测模型
 │   ├── disease_cls.pth       # ResNet 病害分类模型
-│   └── disease_classes.json  # 病害类别名称
+│   └── disease_classes.json  # 病害类别名称（含示例）
+├── scripts/
+│   ├── dev.bat               # Windows CMD 一键启动（前后端）
+│   └── dev.ps1               # Windows PowerShell 一键启动（调用 start.ps1）
 ├── Makefile                  # Linux/macOS 快速命令
 ├── start.ps1                 # Windows PowerShell 一键启动
 └── README.md
@@ -59,17 +62,18 @@ ps/
 
 ### 第一步：准备模型文件
 
-将训练好的模型放入项目根目录下的 `models/` 文件夹：
+将训练好的模型放入项目根目录下的 `models/` 文件夹（目录已存在，无需创建）：
 
 ```
 models/
 ├── pest_detect.pt          # YOLOv8 虫害检测模型（来自 runs/pest_detect/.../weights/best.pt）
 ├── disease_cls.pth         # ResNet 病害分类模型
-└── disease_classes.json    # 分类标签，格式示例：
-                            # ["Tomato_healthy","Tomato_Early_blight",...]
+└── disease_classes.json    # 分类标签（已提供示例，可直接使用或按需修改）
 ```
 
 > ⚠️ 若模型文件不存在，系统仍可运行，识别时将返回「模型未加载」提示。
+>
+> `models/disease_classes.json` 已预置了10个番茄病害类别名称作为示例，若您使用不同的分类模型，请按相同格式（JSON 字符串数组）修改该文件。
 
 ### 第二步：安装 ML 依赖（如有模型）
 
@@ -92,6 +96,12 @@ pip install ultralytics
 4. 在新窗口启动 Vite（端口 5173）
 
 访问 **http://localhost:5173** 使用 Web 界面。
+
+若使用 CMD（命令提示符），也可运行：
+
+```cmd
+scripts\dev.bat
+```
 
 ### Linux / macOS
 
